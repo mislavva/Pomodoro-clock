@@ -15,26 +15,24 @@
         <h1>Pomodoro Clock</h1>
 		<div class="container">
             <div class="row">
-                <div class="small-circles">
-                    <p id="break">
-                        <a href="#" class="minus">-</a>
-                        5
-                        <a href="#" class="plus">+</a>
-                    </p>
+                <div>
+                    <h4>BREAK LENGTH</h4>
+                    <div class="break-length">
+                            <a href="#" class="minus">-</a>
+                            <p id="break-length"></p>
+                            <a href="#" class="plus">+</a>
+                    </div>
                 </div>
-                <div class="small-circles">
-                    <p id="work">
-                        <a href="#" class="minus">-</a>
-                        30
-                        <a href="#" class="plus">+</a>
-                    </p>
-                </div>
+                <div>
+                        <h4>SESSION LENGTH</h4>
+                        <div class="session-length">
+                                <a href="#" class="minus">-</a>
+                                <p id="session-length"></p>
+                                <a href="#" class="plus">+</a>
+                        </div>
+                    </div>
             </div>
-            <div class="wrapper">
-                <div class="spinner pie"></div>
-                <div class="filler pie"></div>
-                <div class="mask"></div>
-            </div>
+            <canvas id="canvas" width="300" height="300"></canvas>
 		</div>
 
 		<script src="js/app.js"></script>
