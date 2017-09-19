@@ -21,27 +21,46 @@ h1 {
 }
 .row {
     display: flex;
-    justify-content: space-around;
-}
-#break-length, #session-length {
-    text-align: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 350px;
 }
 .session-length, .break-length {
+    align-items: center;
     display: flex;
     background: silver;
     border-radius: 50%;
-    align-items: center;
     height: 100px;
+    justify-content: center;
     margin: 10px auto 30px auto;
     width: 100px;
 }
 .session-length p, .break-length p {
     font-size: 30px;
-    width: 33.333333%;
+    margin: 0 5px;
 }
 .session-length a, .break-length a {
     color: black;
-    width: 33.333333%;
     font-size: 30px;
     text-decoration: none;
+}
+#timer {
+    background-color: yellow;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
+    width: 250px;
+
+}
+.circle2 {
+    align-items: center;
+    background-color: silver;
+    border-radius: 50%;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    left: 20px;
+    right: 20px;
+    position: absolute;
+    top: 20px;
 }
