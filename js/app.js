@@ -186,6 +186,9 @@ var session =
     }
 };
 
+this.onload = function()
+{
+    session.listeners();
+}
 
-session.listeners();
 
