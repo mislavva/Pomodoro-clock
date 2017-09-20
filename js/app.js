@@ -1,21 +1,28 @@
-var BREAK_DEFAULT_VALUE = 5,
-    SESSION_DEFAULT_VALUE = 25,
-    startSession = true,
+// forEach method implementation for older browsers...
+if (!Object.prototype.forEach) {
+    Object.prototype.forEach = function(fn, scope) {
+       for(var i = 0, len = this.length; i < len; ++i) {
+            fn.call(scope, this[i], i, this);
+        }
+    };
+}
+
+var startSession = true,
     startBreak = false;
 
 var session =
 {
-    session: 1501,
-    break: 301,
+    session: 1500,
+    break: 300,
     display: function()
     {
         var sessionDuration = document.getElementById('session-length'),
-            breakDuration = document.getElementById('break-length'),
-            timer = document.querySelector('h2');
+            breakDuration   = document.getElementById('break-length'),
+            timer           = document.getElementById('timer');
 
         sessionDuration.innerHTML = parseInt(this.session / 60);
-        breakDuration.innerHTML = parseInt(this.break / 60);
-        timer.innerHTML = parseInt(this.session / 60);
+        breakDuration.innerHTML   = parseInt(this.break / 60);
+        timer.innerHTML           = parseInt(this.session / 60).toString() + ' : 00';
     },
     addMinute: function(session)
     {
@@ -28,24 +35,24 @@ var session =
     },
     removeMinute: function(session)
     {
-        if(session === 'session' && parseInt(this.session / 60) > 1)
+        if(session === 'session' && (this.session / 60) > 1)
             this.session -= 60;
-        else if(session === 'break' && parseInt(this.break / 60) > 1)
+        else if(session === 'break' && (this.break / 60) > 1)
             this.break -= 60;
         this.display();
     },
     listeners: function()
     {
-        var plus = document.querySelectorAll('.plus'),
+        var plus  = document.querySelectorAll('.plus'),
             minus = document.querySelectorAll('.minus'),
             start = document.getElementById('start'),
             reset = document.getElementById('reset'),
             pause = document.getElementById('pause'),
-            that = this,
+            ding  = document.getElementById('ding'),
+            tick  = document.getElementById('tick'),
+            that  = this,
             id;
-
-        that.display();
-
+        
         // Function for adding minutes
         function addMinute()
         {
@@ -62,22 +69,12 @@ var session =
             else
                 that.removeMinute('break');
         }
+
         // Function for adding or removing event listeners from + & - depending on function parameter
         // Remove listeners when timer starts, add them on reset.
-        function minutesEventListeners(action)
+        function minutesEventListeners(remove)
         {
-            if(action === 'add')
-            {
-                plus.forEach(function(element)
-                {
-                    element.addEventListener('click', addMinute);
-                });
-                minus.forEach(function(element)
-                {
-                    element.addEventListener('click', removeMinute);
-                });
-            }
-            else if(action === 'remove')
+            if(remove)
             {
                 plus.forEach(function(element)
                 {
@@ -88,79 +85,104 @@ var session =
                     element.removeEventListener('click', removeMinute);
                 });
             }
+            else
+            {
+                plus.forEach(function(element)
+                {
+                    element.addEventListener('click', addMinute);
+                });
+                minus.forEach(function(element)
+                {
+                    element.addEventListener('click', removeMinute);
+                });
+            }
         }
-
-        minutesEventListeners('add');
+        
 
         start.addEventListener('click', function()
         {
-            minutesEventListeners('remove');
-            this.style.display = 'none';
-            pause.style.display = 'inline-block';
             id = setInterval(function()
             {
                 if(startSession)
                 {
                     that.sessionStart();
+                    if(that.session === 5 || that.session === 4 || that.session === 3 || that.session === 2 || that.session === 1)
+                        tick.play();
                     if(that.session === 0)
                     {
-                        that.session = document.getElementById('session-length').innerHTML * 60 + 1;
+                        that.session = document.getElementById('session-length').innerHTML * 60;
                         startSession = false;
-                        startBreak = true;
+                        startBreak   = true;
+                        ding.play();
                     }
                 }
-                if(startBreak)
+                else if(startBreak)
                 {
                     that.breakStart();
+                    if(that.break === 5 || that.break === 4 || that.break === 3 || that.break === 2 || that.break === 1)
+                        tick.play();
                     if(that.break === 0)
                     {
-                        that.break = document.getElementById('break-length').innerHTML * 60 + 1;
+                        that.break   = document.getElementById('break-length').innerHTML * 60;
                         startSession = true;
-                        startBreak = false;
+                        startBreak   = false;
+                        ding.play();
                     }
                 }
-
             }, 1000);
+            minutesEventListeners(true);
+            this.style.display = 'none';
+            pause.style.display = 'inline-block';
         });
 
         pause.addEventListener('click', function()
         {
             clearInterval(id);
-            this.style.display = 'none';
+            this.style.display  = 'none';
             start.style.display = 'inline-block';
         });
 
-        reset.addEventListener('click', function(){
-            that.session = 1501;
-            that.break = 301;
+        reset.addEventListener('click', function()
+        {
             clearInterval(id);
+            that.session        = 1500;
+            that.break          = 300;
             pause.style.display = 'none';
             start.style.display = 'inline-block';
             that.display();
-            minutesEventListeners('add');
+            minutesEventListeners(false);
         });
+
+        minutesEventListeners(false);
+        that.display();
     },
     sessionStart: function()
     {
         this.session--;
-        var timer = document.querySelector('h2'),
-            minutes = (parseInt(this.session / 60)).toString(),
-            seconds = (this.session % 60).toString();
+        var description = document.getElementById('description'),
+            timer       = document.getElementById('timer'),
+            minutes     = (parseInt(this.session / 60)).toString(),
+            seconds     = (this.session % 60).toString();
 
-        timer.innerHTML = (minutes.length === 1 ? '0' + minutes : minutes) +
-                          ' : ' +
-                          (seconds.length === 1 ? '0' + seconds : seconds);
+        timer.innerHTML           = (minutes.length === 1 ? '0' + minutes : minutes) +
+                                                                               ' : ' +
+                                    (seconds.length === 1 ? '0' + seconds : seconds);
+        description.innerHTML     = 'SESSION';
+        description.style.display = 'block';
     },
     breakStart: function()
     {
         this.break--;
-        var timer = document.querySelector('h2'),
-            minutes = (parseInt(this.break / 60)).toString(),
-            seconds = (this.break % 60).toString();
+        var description = document.getElementById('description'),
+            timer       = document.querySelector('h3'),
+            minutes     = (parseInt(this.break / 60)).toString(),
+            seconds     = (this.break % 60).toString();
 
-        timer.innerHTML = (minutes.length === 1 ? '0' + minutes : minutes) +
-                          ' : ' +
-                          (seconds.length === 1 ? '0' + seconds : seconds);
+        timer.innerHTML           = (minutes.length === 1 ? '0' + minutes : minutes) +
+                                                                               ' : ' +
+                                    (seconds.length === 1 ? '0' + seconds : seconds);
+        description.innerHTML     = 'BREAK';
+        description.style.display = 'block';
     }
 };
 

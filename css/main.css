@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,400');
 * {
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+    font-family: 'Raleway', Arial, sans-serif;
+    font-weight: 400 !important;
+    -webkit-font-smoothing: antialiased;
     margin: 0;
     padding: 0;
 }
@@ -10,57 +14,100 @@ html, body {
     width: 100%;
 }
 body {
+    background-color: #1A237E;
     text-align: center;
 }
+h1, h4 {
+    color: #C5CAE9;
+}
 h1 {
-    margin-bottom: 50px;
+    font-size: 35px;
+    margin: 30px 20px;
+}
+h4 {
+    font-size: 18px;
 }
 .container {
     margin: 0 auto;
     width: 100%;
 }
 .row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     margin: 0 auto;
     width: 350px;
 }
-.session-length, .break-length {
-    align-items: center;
+.session-length, .break-length, button {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    background: silver;
     border-radius: 50%;
+    border: 2px solid #5C6BC0;
+    color: #C5CAE9;
     height: 100px;
-    justify-content: center;
-    margin: 10px auto 30px auto;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin: 20px auto 0 auto;
     width: 100px;
+}
+button {
+    background-color: #1A237E;
+    font-size: 25px;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+button:hover {
+    background-color: #5C6BC0;
+    color: #000;
 }
 .session-length p, .break-length p {
     font-size: 30px;
     margin: 0 5px;
 }
 .session-length a, .break-length a {
-    color: black;
+    color: #C5CAE9;
     font-size: 30px;
     text-decoration: none;
 }
-#timer {
-    background-color: yellow;
+#circle {
+    align-items: center;
+    align-content: center;
+    background-color: #1A237E;
+    border: 2px solid #5C6BC0;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
     height: 250px;
     margin: 0 auto;
-    position: relative;
     width: 250px;
+}
+#timer, #description {
+    color: #C5CAE9;
+    font-size: 40px;
+    width: 100%;
+}
+#description {
+    display: none;
+    font-size: 30px;
+}
 
-}
-.circle2 {
-    align-items: center;
-    background-color: silver;
-    border-radius: 50%;
-    bottom: 20px;
-    display: flex;
-    justify-content: center;
-    left: 20px;
-    right: 20px;
-    position: absolute;
-    top: 20px;
-}
+
+
+
+
+
+
+
+
+
+

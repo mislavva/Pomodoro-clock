@@ -32,18 +32,19 @@
                         </div>
                     </div>
             </div>
-            <div id="timer">
-                <div id="cover" class="circle"></div>
-                <div id="left-color" class="circle color"></div>
-                <div id="right-color" class="circle color"></div>
-                <div class="circle2">
-                    <h2></h2>
-                </div>
+            <div id="circle">
+                    <h2 id="description"></h2>
+                    <h3 id="timer"></h3>
             </div>
-            <button id="start">START</button>
-            <button id='pause' style="display:none;">PAUSE</button>
-            <button id="reset">RESET</button>
-		</div>
+            <div class="row">
+                <button id="start">START</button>
+                <button id='pause' style="display:none;">PAUSE</button>
+                <button id="reset">RESET</button>
+            </div>
+        </div>
+        
+        <audio id="ding" src="sounds/ding.wav"></audio>
+        <audio id="tick" src="sounds/tick.wav"></audio>
 
 		<script src="js/app.js"></script>
 	</body>
