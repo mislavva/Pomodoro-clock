@@ -97,7 +97,6 @@ var session =
                 });
             }
         }
-        
 
         start.addEventListener('click', function()
         {
@@ -144,11 +143,13 @@ var session =
 
         reset.addEventListener('click', function()
         {
+            var description       = document.getElementById('description');
+            that.session          = 1500;
+            that.break            = 300;
+            pause.style.display   = 'none';
+            start.style.display   = 'inline-block';
+            description.innerHTML = '';
             clearInterval(id);
-            that.session        = 1500;
-            that.break          = 300;
-            pause.style.display = 'none';
-            start.style.display = 'inline-block';
             that.display();
             minutesEventListeners(false);
         });

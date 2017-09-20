@@ -39,7 +39,7 @@ h4 {
         -ms-flex-pack: justify;
             justify-content: space-between;
     margin: 0 auto;
-    width: 350px;
+    width: 310px;
 }
 .session-length, .break-length, button {
     -webkit-box-align: center;
@@ -101,8 +101,11 @@ button:hover {
     font-size: 30px;
 }
 
-
-
+@media screen and (min-width: 421px) {
+    .row {
+        width: 400px;
+    }
+}
 
 
 
