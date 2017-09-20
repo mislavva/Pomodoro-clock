@@ -52,7 +52,7 @@ var session =
             tick  = document.getElementById('tick'),
             that  = this,
             id;
-        
+
         // Function for adding minutes
         function addMinute()
         {
